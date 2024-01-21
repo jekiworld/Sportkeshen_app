@@ -21,6 +21,11 @@ const Register = () => {
 
                 <div className="emailpage">
 
+                <div className="username">
+                        <a>Имя пользователья</a>
+                        <input type="text" className="username_in" />
+                    </div>
+
                     <div className="email">
                         <a>Почта</a>
                         <input type="text" className="email_in" />
