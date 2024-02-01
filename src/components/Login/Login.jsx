@@ -1,35 +1,49 @@
 import styles from './Login.css'
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const[email, setEmail] = useState('');
   const[password, setPassword] = useState('');
+  const [token, setToken] = useState('');
 
+  
+  const navigate = useNavigate();
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     const userData = {
       email,
       password,
     };
     
-    fetch('http://localhost:8080/login', {
-      method: 'POST',
-      headers: {
+    try {
+      const response = await fetch('http://localhost:8080/login', {
+        method: 'POST',
+        headers: {
           'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userData),
-  })
-      .then((response) => response.json())
-      .then((data) => {
-          console.log('User logged successfully:', data);
-          // You can handle success here, e.g., redirect to another page
-      })
-      .catch((error) => {
-          console.error('Invalid email or password', error);
-          // Handle the error, e.g., display an error message to the user
+        },
+        body: JSON.stringify(userData),
       });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log('User logged successfully:', data);
+        // После успешной аутентификации сохраните токен, если необходимо
+
+        // Перенаправьте пользователя на другую страницу
+        navigate('/dashboard'); // Замените '/dashboard' на нужный вам путь
+      } else {
+        console.error('Invalid email or password', data.error);
+        // Обработка ошибок, например, отображение сообщения об ошибке пользователю
+      }
+    } catch (error) {
+      console.error('Error during authentication', error);
+      // Обработка других ошибок
+    }
+  
   }
   
   

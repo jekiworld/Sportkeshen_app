@@ -35,11 +35,9 @@ const Register = () => {
             .then((response) => response.json())
             .then((data) => {
                 console.log('Registration successful:', data);
-                // You can handle success here, e.g., redirect to another page
             })
             .catch((error) => {
                 console.error('Error during registration:', error);
-                // Handle the error, e.g., display an error message to the user
             });
     }
 
