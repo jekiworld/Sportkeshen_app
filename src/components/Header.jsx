@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { BrowserRouter as Router, Route, Routes, Link, Outlet, useNavigate } from 'react-router-dom';
 
 
-const Header = ({ authenticated, token }) => {
+const Header = ({ authenticated, token, switch_authenticated_false }) => {
 
   const navigate = useNavigate();
 
@@ -27,10 +27,12 @@ const Header = ({ authenticated, token }) => {
           'Authorization': `Bearer ${token}`,
         },
       });
-  
+
       if (response.ok) {
-                navigate('/');
-                
+        switch_authenticated_false(false);
+        navigate('/');
+
+
       } else {
         console.error('Logout failed:', response.statusText);
       }

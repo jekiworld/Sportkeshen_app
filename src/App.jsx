@@ -19,6 +19,10 @@ export default function Home() {
     setAuthenticated(true);
     setUserToken(token);
   }
+
+  const switch_authenticated_false = () => {
+    setAuthenticated(false);
+  }
   
   console.log(authenticated)
 
@@ -27,6 +31,7 @@ export default function Home() {
       <div className="all">
         <Header authenticated={authenticated}
                 token = {userToken}
+                switch_authenticated_false={switch_authenticated_false}
         />
         <Outlet />
       </div>
